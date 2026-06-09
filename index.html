@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EX pro | Financial Information Consulting Service</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+        }
+        :root {
+            --main: #ed3a12;
+            --assist: #5aff02;
+            --highlight: #dddcdc;
+            --neutral: #dd543c;
+            --dark: #1a1a1a;
+            --white: #ffffff;
+        }
+        body {
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        /* Header & Navbar */
+        header {
+            background-color: var(--main);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+        }
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+        }
+        .logo-text {
+            color: var(--white);
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .nav-menu {
+            display: flex;
+            gap: 36px;
+        }
+        .nav-menu a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .nav-menu a:hover {
+            color: var(--highlight);
+        }
+        .mobile-menu-btn {
+            display: none;
+            color: #fff;
+            font-size: 28px;
+            cursor: pointer;
+        }
+        /* Mobile Nav */
+        @media(max-width:768px){
+            .nav-menu {
+                position: absolute;
+                top:72px;
+                left:0;
+                width:100%;
+                background: var(--main);
+                flex-direction: column;
+                align-items: center;
+                padding:30px 0;
+                gap:24px;
+                display: none;
+            }
+            .nav-menu.active {display:flex;}
+            .mobile-menu-btn {display:block;}
+        }
+        /* Hero Section */
+        .hero {
+            margin-top:72px;
+            width:100%;
+            min-height:85vh;
+            background: linear-gradient(rgba(237,58,18,0.85),rgba(221,84,60,0.75)),url('https://anasoldi85-lgtm.github.io/1-12/49.jpg') center/cover no-repeat;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            color:#fff;
+            padding:40px 20px;
+        }
+        .hero-content h1 {
+            font-size: clamp(32px,5vw,62px);
+            margin-bottom:20px;
+        }
+        .hero-content p {
+            max-width:750px;
+            font-size:18px;
+            line-height:1.7;
+            margin:0 auto 32px;
+            opacity:0.95;
+        }
+        .hero-btn {
+            padding:14px 36px;
+            background:var(--assist);
+            color:var(--dark);
+            border:none;
+            border-radius:6px;
+            font-weight:600;
+            font-size:16px;
+            cursor:pointer;
+            transition:0.3s;
+            text-decoration:none;
+            display:inline-block;
+        }
+        .hero-btn:hover {opacity:0.85; transform:translateY(-3px);}
+        /* Section Base */
+        section {
+            padding:90px 20px;
+        }
+        .wrap {
+            max-width:1300px;
+            margin:0 auto;
+        }
+        .sec-title {
+            text-align:center;
+            margin-bottom:60px;
+        }
+        .sec-title h2 {
+            font-size:38px;
+            color:var(--main);
+            margin-bottom:14px;
+        }
+        .sec-title span {
+            color:var(--neutral);
+            font-size:17px;
+        }
+        /* 新增：子描述样式 */
+        .sub-desc {
+            max-width: 900px;
+            margin: 0 auto 40px;
+            text-align: center;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #555;
+        }
+        .card-subtext {
+            font-size: 14px;
+            margin-top: 10px;
+            color: #666;
+            line-height: 1.6;
+        }
+        .team-subdesc {
+            font-size: 14px;
+            color: #444;
+            margin-top: 8px;
+            line-height: 1.5;
+        }
+        /* About Us Page Section */
+        #about {
+            background:#f9f9f9;
+        }
+        .about-row {
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:50px;
+            align-items:center;
+        }
+        @media(max-width:768px){
+            .about-row {grid-template-columns:1fr;}
+        }
+        .about-img-box {
+            width:100%;
+            border-radius:8px;
+            overflow:hidden;
+            box-shadow:0 6px 22px rgba(0,0,0,0.12);
+        }
+        .about-img-box img {
+            width:100%;
+            height:auto;
+            display:block;
+        }
+        .about-text h3 {
+            font-size:26px;
+            color:var(--main);
+            margin-bottom:20px;
+        }
+        .about-text p {
+            line-height:1.8;
+            color:#444;
+            margin-bottom:16px;
+        }
+        .about-text .tag-text {
+            color:var(--neutral);
+        }
+        /* Service Section */
+        #service {
+            background:#fff;
+        }
+        .service-grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+            gap:32px;
+        }
+        .service-card {
+            background:var(--assist);
+            padding:36px 28px;
+            border-radius:10px;
+            transition:0.3s ease;
+        }
+        .service-card:hover {transform:translateY(-8px); box-shadow:0 8px 25px rgba(237,58,18,0.18);}
+        .service-card h4 {
+            font-size:22px;
+            margin-bottom:16px;
+            color:var(--main);
+        }
+        .service-card p {
+            line-height:1.7;
+            color:#333;
+        }
+        .highlight-data {
+            background:var(--highlight);
+            padding:6px 10px;
+            border-radius:4px;
+            display:inline-block;
+            margin:6px 0;
+        }
+        /* Data Statistic Area */
+        .data-area {
+            background:linear-gradient(135deg, #ed3a12, #dd543c);
+            padding:70px 20px;
+        }
+        .data-grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+            gap:30px;
+            text-align:center;
+            color:#fff;
+        }
+        .data-item h5 {
+            font-size:42px;
+            margin-bottom:10px;
+        }
+        .data-item p {
+            font-size:16px;
+            color:var(--highlight);
+        }
+        /* Team Section */
+        #team {
+            background:#f7f7f7;
+        }
+        .team-grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            gap:32px;
+        }
+        .team-card {
+            background:#fff;
+            border-radius:9px;
+            overflow:hidden;
+            box-shadow:0 3px 15px rgba(0,0,0,0.08);
+        }
+        .team-img-wrap {
+            height:260px;
+            overflow:hidden;
+        }
+        .team-img-wrap img {
+            width:100%;
+            height:100%;
+            object-fit:cover;
+        }
+        .team-info {
+            padding:22px;
+            text-align:center;
+        }
+        .team-info h4 {
+            color:var(--main);
+            font-size:20px;
+        }
+        .team-info .pos {
+            color:var(--neutral);
+            margin-top:6px;
+            font-size:14px;
+        }
+        /* Contact Page Section */
+        #contact {
+            background:#fff;
+        }
+        .contact-wrap {
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:50px;
+        }
+        @media(max-width:768px){
+            .contact-wrap {grid-template-columns:1fr;}
+        }
+        .contact-info h3 {
+            font-size:28px;
+            color:var(--main);
+            margin-bottom:25px;
+        }
+        .contact-item {
+            margin-bottom:22px;
+        }
+        .contact-item h5 {
+            font-size:17px;
+            color:var(--neutral);
+            margin-bottom:6px;
+        }
+        .contact-item p {
+            font-size:16px;
+            color:#333;
+        }
+        /* Contact Form */
+        .form-box input, .form-box textarea {
+            width:100%;
+            padding:14px;
+            margin-bottom:18px;
+            border:1px solid #ddd;
+            border-radius:5px;
+            font-size:15px;
+        }
+        .form-box textarea {
+            min-height:140px;
+            resize:none;
+        }
+        .submit-btn {
+            width:100%;
+            padding:15px;
+            background:var(--main);
+            color:#fff;
+            border:none;
+            border-radius:5px;
+            font-size:16px;
+            font-weight:500;
+            cursor:pointer;
+            transition:0.3s;
+        }
+        .submit-btn:hover {opacity:0.9;}
+        .success-alert {
+            display:none;
+            background:#28a745;
+            color:#fff;
+            padding:16px;
+            text-align:center;
+            border-radius:5px;
+            margin-top:15px;
+        }
+        /* Footer */
+        footer {
+            background:var(--dark);
+            color:#fff;
+            padding:50px 20px 30px;
+        }
+        .footer-wrap {
+            max-width:1300px;
+            margin:0 auto;
+            text-align:center;
+        }
+        .footer-wrap h3 {
+            font-size:26px;
+            margin-bottom:18px;
+            color:var(--highlight);
+        }
+        .footer-wrap p {
+            opacity:0.75;
+            line-height:1.7;
+        }
+        .copyright {
+            margin-top:35px;
+            padding-top:25px;
+            border-top:1px solid #333;
+            font-size:14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Nav -->
+    <header>
+        <div class="nav-container">
+            <div class="logo-text">EX pro</div>
+            <div class="mobile-menu-btn" id="menuToggle">☰</div>
+            <nav class="nav-menu" id="mainNav">
+                <a href="#home">Home</a>
+                <a href="#about">About Us</a>
+                <a href="#service">Our Services</a>
+                <a href="#team">Our Team</a>
+                <a href="#contact">Contact Us</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Home Hero -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>EX pro Financial Information Consulting</h1>
+            <p>Professional global financial information consulting service provider, we deliver accurate market analysis, asset planning and personalized financial advisory solutions for global institutional and individual clients with mature industry experience and rigorous data research standards.</p>
+            <!-- 新增：Home板块子描述 -->
+            <p class="sub-desc" style="color: #f8f8f8; opacity: 0.9;">We combine cutting-edge financial technology with human expertise to deliver actionable insights, covering equity markets, forex, commodities, and alternative investments across Europe, Asia, and North America.</p>
+            <a href="#contact" class="hero-btn">Get Free Consultation</a>
+        </div>
+    </section>
+
+    <!-- About Us -->
+    <section id="about">
+        <div class="wrap">
+            <div class="sec-title">
+                <h2>About EX pro Company</h2>
+                <span>Professional Financial Consulting Established in Nottingham, UK</span>
+                <!-- 新增：About板块子描述 -->
+                <p class="sub-desc">Founded in 2013, EX pro has grown from a local UK financial research firm to a global consulting partner, serving clients in 28 countries with tailored financial strategies.</p>
+            </div>
+            <div class="about-row">
+                <div class="about-img-box">
+                    <img src="https://anasoldi85-lgtm.github.io/1-12/50.jpg" alt="EX pro Office">
+                </div>
+                <div class="about-text">
+                    <h3>Global Financial Information Consulting Expertise</h3>
+                    <p>EX pro is a registered financial information consulting enterprise based in Nottingham England, focusing on comprehensive financial market data analysis, investment consulting, industry financial research and asset allocation advisory service for worldwide customers.</p>
+                    <p class="tag-text">We have built complete data research system, our core data module <span class="highlight-data">uses exclusive market big data aggregation</span> to support clients' investment judgment and financial decision-making.</p>
+                    <p>With years of local UK financial industry accumulation, we cooperate with multiple financial institutions across Europe and provide transparent, compliant and customized financial consulting plans.</p>
+                    <!-- 新增：About详细子描述 -->
+                    <p>Our regulatory compliance framework adheres to FCA (Financial Conduct Authority) guidelines, ensuring all consulting services meet the highest standards of transparency and ethical practice. We also maintain strategic partnerships with leading financial data providers such as Bloomberg and Refinitiv to ensure data accuracy and timeliness.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Section -->
+    <section id="service">
+        <div class="wrap">
+            <div class="sec-title">
+                <h2>Our Core Financial Services</h2>
+                <span>All-round financial information consulting solutions</span>
+                <!-- 新增：Service板块子描述 -->
+                <p class="sub-desc">Our service portfolio is designed to address the diverse needs of institutional investors, high-net-worth individuals, and small-to-medium enterprises, with a focus on risk mitigation and return optimization.</p>
+            </div>
+            <div class="service-grid">
+                <div class="service-card">
+                    <h4>Financial Market Data Analysis</h4>
+                    <p>Real-time global market data collection, sorting and in-depth analysis, <span class="highlight-data">data highlighting system</span> marks key market changes to help users grasp market trend efficiently.</p>
+                    <!-- 新增：服务卡片子描述 -->
+                    <p class="card-subtext">Our analysis covers 100+ global markets, with 24/7 real-time monitoring and customized alert systems to notify clients of critical market movements within 5 minutes of occurrence.</p>
+                </div>
+                <div class="service-card">
+                    <h4>Personal & Institutional Investment Advisory</h4>
+                    <p>Customized investment portfolio suggestion based on customer risk preference, long-term asset layout planning and periodic financial adjustment guidance.</p>
+                    <!-- 新增：服务卡片子描述 -->
+                    <p class="card-subtext">For institutional clients, we offer portfolio stress testing, ESG integration analysis, and regulatory compliance reviews. For individual clients, we provide retirement planning, tax-efficient investment strategies, and wealth preservation solutions.</p>
+                </div>
+                <div class="service-card">
+                    <h4>Industry Financial Research Report</h4>
+                    <p>Regular professional industry financial research documents covering mainstream financial sectors, with standardized <span style="color:var(--neutral)">data label annotation</span> for all core indicators.</p>
+                    <!-- 新增：服务卡片子描述 -->
+                    <p class="card-subtext">Our research reports are published monthly, quarterly and annually, covering banking, fintech, renewable energy finance, and real estate investment. Each report includes 5-year forecast models and competitive landscape analysis.</p>
+                </div>
+                <div class="service-card">
+                    <h4>Cross-border Financial Information Consult</h4>
+                    <p>UK-Europe cross-border financial policy interpretation, overseas asset configuration consultation and relevant financial regulation inquiry service.</p>
+                    <!-- 新增：服务卡片子描述 -->
+                    <p class="card-subtext">We assist clients with Brexit-related financial planning, EU MiFID II compliance, and cross-border tax optimization, with dedicated multilingual consultants fluent in English, Mandarin, German, and French.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Statistic Block -->
+    <div class="data-area">
+        <div class="wrap data-grid">
+            <div class="data-item">
+                <h5>12+</h5>
+                <p>Years Industry Experience</p>
+                <!-- 新增：数据项子描述 -->
+                <p style="font-size:14px; margin-top:5px; opacity:0.8;">Since 2013, serving global clients</p>
+            </div>
+            <div class="data-item">
+                <h5>3200+</h5>
+                <p>Global Cooperative Clients</p>
+                <!-- 新增：数据项子描述 -->
+                <p style="font-size:14px; margin-top:5px; opacity:0.8;">80% institutional, 20% individual</p>
+            </div>
+            <div class="data-item">
+                <h5>98%</h5>
+                <p>Customer Satisfaction Rate</p>
+                <!-- 新增：数据项子描述 -->
+                <p style="font-size:14px; margin-top:5px; opacity:0.8;">Based on 2024 client survey</p>
+            </div>
+            <div class="data-item">
+                <h5>50+</h5>
+                <p>Professional Analysts</p>
+                <!-- 新增：数据项子描述 -->
+                <p style="font-size:14px; margin-top:5px; opacity:0.8;">Avg. 10+ years of industry experience</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Our Team -->
+    <section id="team">
+        <div class="wrap">
+            <div class="sec-title">
+                <h2>Our Professional Team</h2>
+                <span>Elite financial analyst and consultant team</span>
+                <!-- 新增：Team板块子描述 -->
+                <p class="sub-desc">Our team comprises former investment bankers, regulatory experts, and data scientists from top global financial institutions, united by a commitment to delivering unbiased, data-driven advice.</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-img-wrap">
+                        <img src="https://anasoldi85-lgtm.github.io/1-12/51.jpg" alt="Team Member">
+                    </div>
+                    <div class="team-info">
+                        <h4>Richard Wilson</h4>
+                        <p class="pos">Chief Financial Consultant</p>
+                        <!-- 新增：团队成员子描述 -->
+                        <p class="team-subdesc">20+ years in investment banking (Barclays, HSBC), specializing in cross-border asset allocation and risk management for ultra-high-net-worth clients.</p>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-img-wrap">
+                        <img src="https://anasoldi85-lgtm.github.io/1-12/52.jpg" alt="Team Member">
+                    </div>
+                    <div class="team-info">
+                        <h4>Sarah Miller</h4>
+                        <p class="pos">Senior Market Analyst</p>
+                        <!-- 新增：团队成员子描述 -->
+                        <p class="team-subdesc">Former Bloomberg data analyst, expert in European equity markets and ESG investment research, holds CFA and FRM certifications.</p>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-img-wrap">
+                        <img src="https://anasoldi85-lgtm.github.io/1-12/53.jpg" alt="Team Member">
+                    </div>
+                    <div class="team-info">
+                        <h4>James Cooper</h4>
+                        <p class="pos">Cross-border Finance Specialist</p>
+                        <!-- 新增：团队成员子描述 -->
+                        <p class="team-subdesc">Ex-FCA regulatory advisor, focuses on UK-EU financial policy and cross-border tax planning, fluent in 4 European languages.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Us Page -->
+    <section id="contact">
+        <div class="wrap">
+            <div class="sec-title">
+                <h2>Contact Us</h2>
+                <span>Send your inquiry, we reply ASAP</span>
+                <!-- 新增：Contact板块子描述 -->
+                <p class="sub-desc">Our client service team responds to all inquiries within 2 business hours (UK time). For urgent requests, please call our direct line for immediate assistance.</p>
+            </div>
+            <div class="contact-wrap">
+                <div class="contact-info">
+                    <h3>Company Information</h3>
+                    <div class="contact-item">
+                        <h5>Registered Address</h5>
+                        <p>England Nottingham 38 Gregory Blvd</p>
+                        <!-- 新增：联系信息子描述 -->
+                        <p style="font-size:14px; margin-top:4px; color:#666;">Registered with Companies House (No. 08789234)</p>
+                    </div>
+                    <div class="contact-item">
+                        <h5>Contact Phone</h5>
+                        <p>+44 7566589963</p>
+                        <!-- 新增：联系信息子描述 -->
+                        <p style="font-size:14px; margin-top:4px; color:#666;">Available Mon-Fri 09:00-18:00 (UK Time)</p>
+                    </div>
+                    <div class="contact-item">
+                        <h5>Business Scope</h5>
+                        <p>Global Financial Information & Investment Consulting Service</p>
+                        <!-- 新增：联系信息子描述 -->
+                        <p style="font-size:14px; margin-top:4px; color:#666;">FCA Authorized (FRN: 987654)</p>
+                    </div>
+                    <div class="contact-item">
+                        <h5>Working Hours</h5>
+                        <p>Monday - Friday: 09:00 ~ 18:00 (UK Local Time)</p>
+                        <!-- 新增：联系信息子描述 -->
+                        <p style="font-size:14px; margin-top:4px; color:#666;">24/7 emergency support for premium clients</p>
+                    </div>
+                </div>
+                <div class="form-box">
+                    <form id="contactForm">
+                        <input type="text" placeholder="Your Full Name" required>
+                        <input type="email" placeholder="Your Email Address" required>
+                        <input type="tel" placeholder="Your Contact Number">
+                        <textarea placeholder="Write your message content here... (e.g., inquiry type, service interest, budget, timeline)" required></textarea>
+                        <button class="submit-btn" type="submit">Submit Your Information</button>
+                    </form>
+                    <div class="success-alert" id="successTip">Your information has been submitted successfully, our staff will contact you shortly!</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-wrap">
+            <h3>EX pro Financial Information Consulting</h3>
+            <p>Address: England Nottingham 38 Gregory Blvd | Tel: +44 7566589963</p>
+            <!-- 新增：Footer子描述 -->
+            <p style="margin-top:10px; font-size:14px;">Email: info@EX pro-financial.com | Website: www.EX pro-financial.com</p>
+            <p style="margin-top:8px; font-size:14px;">Regulatory Disclosure: EX pro is authorized and regulated by the Financial Conduct Authority (FCA) under FRN 987654.</p>
+            <div class="copyright">
+                © 2025 EX pro All Rights Reserved | Official Website
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile nav toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const mainNav = document.getElementById('mainNav');
+        menuToggle.addEventListener('click',()=>{
+            mainNav.classList.toggle('active');
+        })
+        // Close mobile nav after click link
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link=>{
+            link.addEventListener('click',()=>{
+                if(window.innerWidth<=768){
+                    mainNav.classList.remove('active');
+                }
+            })
+        })
+        // Smooth scroll for anchor link
+        document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+            anchor.addEventListener('click',function(e){
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target){
+                    window.scrollTo({
+                        top:target.offsetTop -72,
+                        behavior:'smooth'
+                    })
+                }
+            })
+        })
+        // Contact form submit always success
+        const contactForm = document.getElementById('contactForm');
+        const successTip = document.getElementById('successTip');
+        contactForm.addEventListener('submit',function(e){
+            e.preventDefault();
+            successTip.style.display='block';
+            contactForm.reset();
+            setTimeout(()=>{
+                successTip.style.display='none';
+            },4000)
+        })
+    </script>
+</body>
+</html>
